@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { calcularDiesLaborables, calcularDataFinal } from '../../utils/calcular-dates';
 
 @Component({
   selector: 'app-formulari-practiques',
