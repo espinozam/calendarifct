@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendariService } from '..';
-import { DiaCalendari, PeriodePractiques } from '../models/models-dades';
+import { CalendariService } from '../../services/calendari.service';
+import { DiaCalendari, PeriodePractiques } from '../../models/models-dades';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-calendari',
-  templateUrl: './calendari.component.html',
-  styleUrls: ['./calendari.component.css']
+  imports: [CommonModule],
+  templateUrl: './calendari.html',
+  styleUrls: ['./calendari.css']
 })
 export class Calendari implements OnInit {
 

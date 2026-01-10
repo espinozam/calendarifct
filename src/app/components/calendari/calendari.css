@@ -74,7 +74,7 @@
 }
 
 /* Dies de la setmana */
-. dies-setmana {
+.dies-setmana {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 2px;
@@ -96,7 +96,7 @@
   gap: 2px;
 }
 
-. dia {
+.dia {
   aspect-ratio: 1;
   display: flex;
   align-items: center;
@@ -180,7 +180,7 @@
     grid-template-columns: 1fr;
   }
 
-  . llegenda {
+  .llegenda {
     flex-direction:  column;
     gap: 10px;
   }
