@@ -1,1 +1,77 @@
-<p>calendari works!</p>
+<!-- calendari. component.html -->
+
+<div class="calendari-container">
+
+  <!-- Formulari d'entrada (Part 1 - Els alumnes completaran això) -->
+  <div class="formulari-practiques">
+    <h2>Planificació de pràctiques FCT</h2>
+
+    <div class="camps-formulari">
+      <!-- TODO Part 1: Els alumnes han d'afegir els camps del formulari aquí -->
+    </div>
+
+    <!-- Missatge amb el resultat (Part 2) -->
+    <div class="resultat" *ngIf="periodePractiques">
+      <p><strong>Data d'inici:</strong> {{ periodePractiques.dataInicial | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Data final prevista:</strong> {{ periodePractiques.dataFinal | date:'dd/MM/yyyy' }}</p>
+      <p><strong>Dies laborables: </strong> {{ periodePractiques. diesLaborables }}</p>
+    </div>
+  </div>
+
+  <!-- Calendari visual -->
+  <div class="calendari-anys">
+    <h3>Any {{ anyActual }}</h3>
+
+    <div class="grid-mesos">
+      <div class="mes" *ngFor="let dies of mesos; let i = index">
+
+        <!-- Capçalera del mes -->
+        <div class="mes-header">
+          <h4>{{ getNomMes(i) }}</h4>
+        </div>
+
+        <!-- Dies de la setmana -->
+        <div class="dies-setmana">
+          <div class="dia-setmana">Dl</div>
+          <div class="dia-setmana">Dt</div>
+          <div class="dia-setmana">Dc</div>
+          <div class="dia-setmana">Dj</div>
+          <div class="dia-setmana">Dv</div>
+          <div class="dia-setmana">Ds</div>
+          <div class="dia-setmana">Dg</div>
+        </div>
+
+        <!-- Grid de dies del mes -->
+        <div class="grid-dies">
+          <div
+            *ngFor="let dia of dies"
+            class="dia"
+            [class.fora-mes]="! dia.esDinsDelMes"
+            [class.cap-setmana]="dia.esCapDeSetmana"
+            [class.festiu]="dia.esFestiu"
+            [class.dia-practiques]="dia.esDiaPractiques">
+            {{ dia.numero }}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Llegenda -->
+  <div class="llegenda">
+    <div class="llegenda-item">
+      <span class="color-box dia-practiques"></span>
+      <span>Dies de pràctiques</span>
+    </div>
+    <div class="llegenda-item">
+      <span class="color-box festiu"></span>
+      <span>Dies festius</span>
+    </div>
+    <div class="llegenda-item">
+      <span class="color-box cap-setmana"></span>
+      <span>Cap de setmana</span>
+    </div>
+  </div>
+
+</div>
