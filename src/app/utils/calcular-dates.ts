@@ -94,8 +94,8 @@ export function calcularDataFinal(
     dataActual.setDate(dataActual.getDate() + 1);
 
     // comprobar si fecha actual es laborable
-    if (esDiaLaborable(dataActual) {
-      diasComptats++;
+    if (esDiaLaborable(dataActual)) {
+      diesComptats++;
     }
   }
 
