@@ -1,1 +1,32 @@
-<p>formulari-practiques works!</p>
+<form [formGroup]="formulari" (ngSubmit)="enviar()">
+
+  <!-- Data d'inici -->
+  <div>
+    <label>Data d'inici:</label>
+    <input type="date" formControlName="dataInici">
+    <div *ngIf="formulari.get('dataInici')?.touched && formulari.get('dataInici')?.invalid">
+      La data d'inici és obligatòria
+    </div>
+  </div>
+
+  <!-- Hores totals -->
+  <div>
+    <label>Hores totals:</label>
+    <input type="number" formControlName="horesTotals">
+    <div *ngIf="formulari.get('horesTotals')?.touched && formulari.get('horesTotals')?.invalid">
+      Les hores totals han de ser majors que 0
+    </div>
+  </div>
+
+  <!-- Hores diàries -->
+  <div>
+    <label>Hores diàries:</label>
+    <input type="number" formControlName="horesDiaries">
+    <div *ngIf="formulari.get('horesDiaries')?.touched && formulari.get('horesDiaries')?.invalid">
+      Les hores diàries han de ser entre 1 i 8
+    </div>
+  </div>
+
+  <button type="submit">Calcular</button>
+
+</form>
