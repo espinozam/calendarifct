@@ -63,7 +63,7 @@ export function esDiaLaborable(data: Date): boolean {
   // TODO: Completar aquesta funció
   // Ha de retornar true només si NO és cap de setmana NI festiu
   // Pista: utilitza les funcions esCapDeSetmana() i esFestiu()
-  return false; // Canviar aquesta línia
+  return !esCapDeSetmana(data) && !esFestiu(data);
 }
 
 /**
@@ -88,6 +88,16 @@ export function calcularDataFinal(
   let diesComptats = 0;
 
   // Escriu el teu codi aquí...
+  while (diesComptats < diesLaborablesNecessaris){
+
+    // avanzar un dia
+    dataActual.setDate(dataActual.getDate() + 1);
+
+    // comprobar si fecha actual es laborable
+    if (esDiaLaborable(dataActual) {
+      diasComptats++;
+    }
+  }
 
   return dataActual;
 }
@@ -105,5 +115,5 @@ export function calcularDiesLaborables(
   // TODO:  Completar aquesta funció
   // Divideix les hores totals entre les hores diàries
   // Recorda arrodonir cap amunt si el resultat no és exacte
-  return 0; // Canviar aquesta línia
+  return Math.ceil(horesDiaries / horesDiaries);
 }
