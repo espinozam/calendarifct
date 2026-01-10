@@ -30,3 +30,17 @@
   <button type="submit">Calcular</button>
 
 </form>
+
+
+<!-- Fecha de finalizacion -->
+<div *ngIf="dataFinal">
+  <p>
+    <strong>Data d'inici:</strong>
+    {{ formulari.value.dataInici | date:'dd/MM/yyyy' }}
+  </p>
+
+  <p>
+    <strong>Data final prevista:</strong>
+    {{ dataFinal | date:'dd/MM/yyyy' }}
+  </p>
+</div>

@@ -14,6 +14,9 @@ export class FormulariPractiques {
   // formulario
   formulari: FormGroup;
 
+  // fecha de finalizacion
+  dataFinal?: Date;
+
   // constructor
   constructor(private fb: FormBuilder) {
 
@@ -33,6 +36,16 @@ export class FormulariPractiques {
     if (this.formulari.valid) {
       // imprime en consola los datos del formulario
       console.log(this.formulari.value);
+
+      // obtener datos del formulario
+      const { dataInici, horesTotals, horesDiaries } = this.formulari.value;
+
+      // calcular dias dias laborables necesarios
+      const diasLaborables = calcularDiesLaborables(horesTotals, horesDiaries);
+
+      // calcular fecha de finalizacion
+      this.dataFinal = calcularDataFinal(new Date(dataInici), diasLaborables);
+
     } else {
       // muestra los errores de validacion en el formulario
       this.formulari.markAllAsTouched();
