@@ -115,5 +115,5 @@ export function calcularDiesLaborables(
   // TODO:  Completar aquesta funció
   // Divideix les hores totals entre les hores diàries
   // Recorda arrodonir cap amunt si el resultat no és exacte
-  return Math.ceil(horesDiaries / horesDiaries);
+  return Math.ceil(horesTotals / horesDiaries);
 }
