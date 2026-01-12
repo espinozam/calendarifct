@@ -15,7 +15,6 @@ export class Calendari implements OnInit {
   mesos: DiaCalendari[][] = [];
   periodePractiques?:  PeriodePractiques;
 
-  constructor(private calendariService:  CalendariService) { }
 
   ngOnInit(): void {
     this.carregarCalendari();
@@ -25,7 +24,7 @@ export class Calendari implements OnInit {
    * Carrega el calendari complet de l'any
    */
   carregarCalendari(): void {
-    this.mesos = this.calendariService. generarAnyComplet(this.anyActual);
+    this.mesos = this.calendariService.generarAnyComplet(this.anyActual);
   }
 
   /**
@@ -46,6 +45,26 @@ export class Calendari implements OnInit {
    */
   calcularPeriode(dataInicial: Date, horesTotals: number, horesDiaries: number): void {
     // Els alumnes completaran això a la Part 2 i Part 3
+    // calcular dias dias laborables necesarios
+    const diasLaborables = calcularDiesLaborables(horesTotals, horesDiaries);
+
+    // calcular fecha de finalizacion
+    const dataFinal = calcularDataFinal(new Date(dataInicial), diasLaborables);
+
+    // guardar periodo de practicas
+    this.periodePractiques = {
+      dataInicial,
+      dataFinal,
+      horesTotals,
+      horesDiaries,
+      diesLaborables: diasLaborables
+    };
+
+    // limpiar calendario
+    this.carregarCalendari();
+
+    // marcar dias de practicas
+    this.marcarDiesPractiques(dataInicial, dataFinal);
   }
 
   /**
@@ -56,6 +75,40 @@ export class Calendari implements OnInit {
     // Els alumnes completaran això a la Part 3
     // Pista: Han de recórrer tots els mesos i dies, i marcar dia. esDiaPractiques = true
     // per aquells dies que estiguin entre dataInicial i dataFinal i siguin laborables
+    const dataInicialFixed = new Date(dataInicial);
+    console.log(dataInicial, dataInicialFixed)
+    // bug necesita corregir
+    // dataInicial = Tue Jan 13 2026 01:00:00 GMT+0100
+    // dataActual  = Wed Jan 14 2026 00:00:00 GMT+0100
+    //console.log(this.mesos)
+    // recorrer meses del año
+    for (const mes of this.mesos) {
+      // recorrer dias del mes
+      for (const dia of mes) {
+
+        // omitir dias fuera del mes
+        if (!dia.esDinsDelMes || !dia.data) {
+          continue;
+        }
+
+        // fecha actual
+        const dataActual = new Date(dia.data);
+
+        // marcar dia de practica
+        if (dataActual >= dataInicial &&
+          dataActual <= dataFinal &&
+          esDiaLaborable(dataActual)
+        ) {
+          dia.esDiaPractiques = true;
+          console.log(dataActual)
+        }
+        // marcar dia festivo
+        if (esFestiu(dataActual)) {
+          dia.esFestiu = true;
+          //console.log(dataActual)
+        }
+      }
+    }
   }
 
 }
