@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CalendariService } from '../../services/calendari.service';
 import { DiaCalendari, PeriodePractiques } from '../../models/models-dades';
 import { CommonModule } from '@angular/common';
+import { calcularDiesLaborables, calcularDataFinal, esDiaLaborable, esFestiu} from '../../utils/calcular-dates';
+import { FormulariPractiques } from '../formulari-practiques/formulari-practiques'
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-calendari',
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './calendari.html',
   styleUrls: ['./calendari.css']
 })
@@ -15,9 +18,39 @@ export class Calendari implements OnInit {
   mesos: DiaCalendari[][] = [];
   periodePractiques?:  PeriodePractiques;
 
+  // formulario
+  formulari: FormGroup;
+
+  constructor(
+    private calendariService:  CalendariService,
+    private fb: FormBuilder
+  ) {
+    // formulario reactivo
+    this.formulari = this.fb.group({
+      dataInici: ['', Validators.required],
+      horesTotals: [400, [Validators.required, Validators.min(1)]],
+      horesDiaries: [8, [Validators.required, Validators.min(1), Validators.max(8)]]
+    });
+  }
 
   ngOnInit(): void {
     this.carregarCalendari();
+  }
+
+  // metodo enviar
+  enviar(): void {
+    if (this.formulari.invalid) {
+      this.formulari.markAllAsTouched();
+      return;
+    }
+
+    const { dataInici, horesTotals, horesDiaries } = this.formulari.value;
+
+    this.calcularPeriode(
+      new Date(dataInici),
+      horesTotals,
+      horesDiaries
+    );
   }
 
   /**

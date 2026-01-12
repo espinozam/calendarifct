@@ -8,6 +8,38 @@
 
     <div class="camps-formulari">
       <!-- TODO Part 1: Els alumnes han d'afegir els camps del formulari aquí -->
+      <form [formGroup]="formulari" (ngSubmit)="enviar()" class="formulari-practiques">
+
+        <!-- Data d'inici -->
+        <div>
+          <label class="camps-formulari">Data d'inici:</label>
+          <input class="camps-formulari" type="date" formControlName="dataInici">
+          <div *ngIf="formulari.get('dataInici')?.touched && formulari.get('dataInici')?.invalid">
+            La data d'inici és obligatòria
+          </div>
+        </div>
+
+        <!-- Hores totals -->
+        <div>
+          <label class="camps-formulari">Hores totals:</label>
+          <input class="camps-formulari" type="number" formControlName="horesTotals">
+          <div *ngIf="formulari.get('horesTotals')?.touched && formulari.get('horesTotals')?.invalid">
+            Les hores totals han de ser majors que 0
+          </div>
+        </div>
+
+        <!-- Hores diàries -->
+        <div>
+          <label class="camps-formulari">Hores diàries:</label>
+          <input class="camps-formulari" type="number" formControlName="horesDiaries">
+          <div *ngIf="formulari.get('horesDiaries')?.touched && formulari.get('horesDiaries')?.invalid">
+            Les hores diàries han de ser entre 1 i 8
+          </div>
+        </div>
+
+        <button type="submit">Calcular</button>
+
+      </form>
     </div>
 
     <!-- Missatge amb el resultat (Part 2) -->
@@ -46,7 +78,7 @@
           <div
             *ngFor="let dia of dies"
             class="dia"
-            [class.fora-mes]="! dia.esDinsDelMes"
+            [class.fora-mes]="!dia.esDinsDelMes"
             [class.cap-setmana]="dia.esCapDeSetmana"
             [class.festiu]="dia.esFestiu"
             [class.dia-practiques]="dia.esDiaPractiques">
